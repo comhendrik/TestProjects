@@ -1,0 +1,24 @@
+.box {
+    background-color: lightblue;
+    border: 1px solid blue;
+    min-height: 50px;
+    margin-top: 50px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: gray;
+}
+
+.footer-link:hover {
+    color: dimgray;
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.navbar {
+    background-color: lightgray;
+}
