@@ -3,7 +3,7 @@ import 'package:learn_tdd_ca/features/number_trivia/domain/repositories/number_t
 import 'package:learn_tdd_ca/features/number_trivia/domain/usecases/get_concrete_number_trivia.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class MockNumberTriviaRepository extends Mock
     implements NumberTriviaRepository {}
@@ -27,15 +27,14 @@ void main() {
       // "On the fly" implementation of the Repository using the Mockito package.
       // When getConcreteNumberTrivia is called with any argument, always answer with
       // the Right "side" of Either containing a test NumberTrivia object.
-      print("1");
-      when(mockNumberTriviaRepository.getConcreteNumberTrivia()).thenAnswer((_)  => tNumberTrivia,);
-      print("2");
+      when(() => mockNumberTriviaRepository.getConcreteNumberTrivia()).thenAnswer((_) async  => tNumberTrivia);
       // The "act" phase of the test. Call the not-yet-existent method.
-      final result = usecase.execute();
+      final result = await usecase.execute();
+
       // UseCase should simply return whatever was returned from the Repository
       expect(result, tNumberTrivia);
       // Verify that the method has been called on the Repository
-      verify(mockNumberTriviaRepository.getConcreteNumberTrivia());
+      verify(() => mockNumberTriviaRepository.getConcreteNumberTrivia());
       // Only the above method should be called and nothing more.
       verifyNoMoreInteractions(mockNumberTriviaRepository);
     },

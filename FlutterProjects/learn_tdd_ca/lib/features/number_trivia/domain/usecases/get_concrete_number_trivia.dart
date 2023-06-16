@@ -7,7 +7,7 @@ class GetConcreteNumberTrivia {
 
   GetConcreteNumberTrivia(this.repository);
 
-  NumberTrivia execute()  {
-    return repository.getConcreteNumberTrivia();
+  Future<NumberTrivia> execute() async {
+    return await repository.getConcreteNumberTrivia();
   }
 }
