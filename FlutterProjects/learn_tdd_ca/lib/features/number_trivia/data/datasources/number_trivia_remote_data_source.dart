@@ -34,7 +34,7 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
     final result = await client.get(url);
 
     if (result.statusCode == 200) {
-      return NumberTriviaModel.fromJson(json.decode(result.data.toString()));
+      return NumberTriviaModel.fromJson(result.data);
     } else {
       throw ServerException();
     }

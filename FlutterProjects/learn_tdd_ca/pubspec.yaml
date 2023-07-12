@@ -21,6 +21,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   matcher: ^0.12.15
   dio: ^5.2.1+1
+  bloc_concurrency: ^0.2.2
 
 
 dev_dependencies:

@@ -6,11 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
 class NumberTriviaPage extends StatelessWidget {
+
+  const NumberTriviaPage({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Number Trivia'),
+        title: const Text('Number Trivia'),
       ),
       body: SingleChildScrollView(
         child: buildBody(context),
@@ -26,28 +30,30 @@ class NumberTriviaPage extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               // Top half
               BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                 builder: (context, state) {
-                  if (state is Empty) {
-                    return MessageDisplay(
+                  if (state is NumberTriviaInitial) {
+                    return const MessageDisplay(
                       message: 'Start searching!',
                     );
-                  } else if (state is Loading) {
-                    return LoadingWidget();
-                  } else if (state is Loaded) {
+                  } else if (state is NumberTriviaLoading) {
+                    return const LoadingWidget();
+                  } else if (state is NumberTriviaLoaded) {
                     return TriviaDisplay(numberTrivia: state.trivia);
-                  } else if (state is Error) {
+                  } else if (state is NumberTriviaError) {
                     return MessageDisplay(
-                      message: state.message,
+                      message: state.errorMsg,
                     );
+                  } else {
+                    return const Text("Test");
                   }
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Bottom half
-              TriviaControls()
+              const TriviaControls()
             ],
           ),
         ),

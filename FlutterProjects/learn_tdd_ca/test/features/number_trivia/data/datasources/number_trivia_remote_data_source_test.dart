@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:learn_tdd_ca/core/error/exceptions.dart';
 import 'package:learn_tdd_ca/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:learn_tdd_ca/features/number_trivia/data/models/number_trivia_model.dart';
-import '../../../../fixtures/fixture_reader.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -37,12 +36,19 @@ void main() {
 
   group('getConcreteNumberTrivia', () {
     final tNumber = 1;
-    final tNumberTriviaModel = NumberTriviaModel.fromJson(json.decode(fixture('trivia.json')));
+    final jsonMap = {
+      "text": "Test text",
+      "number": 1,
+      "found": true,
+      "type": "trivia"
+    };
+    final tNumberTriviaModel = NumberTriviaModel.fromJson(jsonMap);
+
 
     test(
       'should perform a GET Request on a url with number being the endpoint and application/json header',
       () async {
-        setUpMockHttpClientGetRequest(200, fixture('trivia.json'), tNumber);
+        setUpMockHttpClientGetRequest(200, jsonMap, tNumber);
         dataSource.getConcreteNumberTrivia(tNumber);
         verify(() => mockHttpClient.get('http://numbersapi.com/$tNumber?json'));
       }
@@ -50,7 +56,7 @@ void main() {
     test(
       'should perform a GET Request on a url with number being the endpoint and application/json header and return the right TNumberTriviaModel when status code is 200',
         () async {
-          setUpMockHttpClientGetRequest(200, fixture('trivia.json'), tNumber);
+          setUpMockHttpClientGetRequest(200, jsonMap, tNumber);
           final result = await dataSource.getConcreteNumberTrivia(tNumber);
           verify(() => mockHttpClient.get('http://numbersapi.com/$tNumber?json'));
           expect(result, equals(tNumberTriviaModel));
@@ -66,12 +72,18 @@ void main() {
   });
 
   group('getRandomNumberTrivia', () {
-    final tNumberTriviaModel = NumberTriviaModel.fromJson(json.decode(fixture('trivia.json')));
+    final jsonMap = {
+      "text": "Test text",
+      "number": 1,
+      "found": true,
+      "type": "trivia"
+    };
+    final tNumberTriviaModel = NumberTriviaModel.fromJson(jsonMap);
 
     test(
         'should perform a GET Request on a url with number being the endpoint and application/json header',
         () async {
-          setUpMockHttpClientGetRequest(200, fixture('trivia.json'), null);
+          setUpMockHttpClientGetRequest(200, jsonMap, null);
           dataSource.getRandomNumberTrivia();
           verify(() => mockHttpClient.get('http://numbersapi.com/random?json'));
         }
@@ -79,7 +91,7 @@ void main() {
     test(
         'should perform a GET Request on a url with number being the endpoint and application/json header and return the right TNumberTriviaModel when status code is 200',
             () async {
-          setUpMockHttpClientGetRequest(200, fixture('trivia.json'), null);
+          setUpMockHttpClientGetRequest(200, jsonMap, null);
           final result = await dataSource.getRandomNumberTrivia();
           verify(() => mockHttpClient.get('http://numbersapi.com/random?json'));
           expect(result, equals(tNumberTriviaModel));
