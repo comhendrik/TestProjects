@@ -11,17 +11,20 @@ void main() {
   late MockHttpClient httpClient;
   late NewsRemoteDataSource dataSource;
   late String apiKey;
+  late String url;
 
   setUpAll(() {
     httpClient = MockHttpClient();
-    dataSource = NewsRemoteDataSourceImpl(httpClient: httpClient, apiKey: "b8e0661b556f45378ff40417ef14a697");
+    dataSource = NewsRemoteDataSourceImpl(httpClient: httpClient, apiKey: "");
     apiKey = dataSource.apiKey;
+
+    //URL immer ändern, damit es funktioniert, dafür bessere Dinge finden
+    url = "https://newsapi.org/v2/everything?q=tesla&from=2023-06-24&sortBy=publishedAt&apiKey=$apiKey";
   });
 
 
-  void setUpMockHttpClientGetRequest(int statusCode, dynamic data) {
+  void setUpMockHttpClientGetRequest(int statusCode, dynamic data, String url) {
     final requestOptions = RequestOptions(path: '');
-    final url = "https://newsapi.org/v2/everything?q=tesla&from=2023-06-22&sortBy=publishedAt&apiKey=$apiKey";
     when(() => httpClient.get(url)).thenAnswer((_) async => Response(
       requestOptions: requestOptions,
       data: data,
@@ -72,24 +75,24 @@ void main() {
     test(
         'should perform a GET Request on a url',
             () async {
-          setUpMockHttpClientGetRequest(200, data);
+          setUpMockHttpClientGetRequest(200, data, url);
           dataSource.getNews();
-          verify(() => httpClient.get("https://newsapi.org/v2/everything?q=tesla&from=2023-06-22&sortBy=publishedAt&apiKey=$apiKey"));
+          verify(() => httpClient.get(url));
         }
     );
     test(
         'should perform a GET Request on a url and return right List of NewsModel when status code is 200',
             () async {
-          setUpMockHttpClientGetRequest(200, data);
+          setUpMockHttpClientGetRequest(200, data, url);
           final result = await dataSource.getNews();
-          verify(() => httpClient.get("https://newsapi.org/v2/everything?q=tesla&from=2023-06-22&sortBy=publishedAt&apiKey=$apiKey"));
+          verify(() => httpClient.get(url));
           expect(result, equals(tNewsModelList));
         }
     );
     test(
         'should perform a GET Request on a url  and throw a Server Exception when status code is not 200',
             () async {
-          setUpMockHttpClientGetRequest(404, 'Something went wrong');
+          setUpMockHttpClientGetRequest(404, 'Something went wrong', url);
           expect(() => dataSource.getNews(), throwsA(TypeMatcher<ServerException>()));
         }
     );

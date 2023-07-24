@@ -24,20 +24,20 @@ class NewsModel extends News {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
-        source: Source(id: json['source']['id'], name: json['source']['name']),
-        author: json['author'],
-        title: json['title'],
-        description: json['description'],
+        source: Source(name: json['source']['name']),
+        author: json['author'] ?? 'no author',
+        title: json['title'] ?? 'no title',
+        description: json['description'] ?? 'no description',
         url: json['url'],
-        urlToImage: json['urlToImage'],
-        publishedAt: json['publishedAt'],
-        content: json['content']);
+        urlToImage: json['urlToImage'] ?? 'no urlToImage',
+        publishedAt: json['publishedAt'] ?? 'no publishedAt',
+        content: json['content'] ?? 'no content'
+    );
   }
 
   Map<String,dynamic> toJson() {
     return {
       'source': {
-        'id': source.id,
         'name': source.name,
       },
       'author': author,

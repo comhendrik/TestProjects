@@ -21,8 +21,8 @@ void main() {
   });
 
   group('getNews', () {
-    final tNewsModel = NewsModel(source: Source(name: "Test source", id: "1"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
-    final tNewsModel2 = NewsModel(source: Source(name: "Test source", id: "2"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
+    final tNewsModel = NewsModel(source: Source(name: "Test source"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
+    final tNewsModel2 = NewsModel(source: Source(name: "Test source"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
     final List<NewsModel> newsModelList = [tNewsModel,tNewsModel2];
     final List<News> newsList = newsModelList;
 

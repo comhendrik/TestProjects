@@ -4,7 +4,7 @@ import 'package:test_ca_with_api/features/news/domain/entities/news.dart';
 import 'package:test_ca_with_api/features/news/domain/entities/source.dart';
 
 void main() {
-  const tNewsModel = NewsModel(source: Source(name: "Test source", id: "1"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
+  const tNewsModel = NewsModel(source: Source(name: "Test source"), author: "Test author", title: "Test title", description: "test description", url: "https://testNews/test", urlToImage: "https://urlToImage/test", publishedAt: "2023-07-22T17:20:03Z", content: "test content");
   final jsonMap = {
     'source': {
       'name': "Test source",

@@ -22,7 +22,7 @@ void main() {
 
   group('getNews', () {
     const tNews = News(
-        source: Source(name: "Test source", id: "1"),
+        source: Source(name: "Test source"),
         author: "Test author",
         title: "Test title",
         description: "test description",
@@ -33,7 +33,7 @@ void main() {
     );
 
     const tNews2 = News(
-        source: Source(name: "Test source", id: "2"),
+        source: Source(name: "Test source"),
         author: "Test author",
         title: "Test title",
         description: "test description",

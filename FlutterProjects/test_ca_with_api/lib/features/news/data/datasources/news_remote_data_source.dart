@@ -27,7 +27,8 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
 
   @override
   Future<List<NewsModel>> getNews() async {
-    final result = await httpClient.get('https://newsapi.org/v2/everything?q=tesla&from=2023-06-22&sortBy=publishedAt&apiKey=$apiKey');
+    final url = 'https://newsapi.org/v2/everything?q=tesla&from=2023-06-24&sortBy=publishedAt&apiKey=$apiKey';
+    final result = await httpClient.get(url);
     if (result.statusCode == 200) {
       List<NewsModel> newsList = [];
       for (final article in result.data['articles']) {
